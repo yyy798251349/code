@@ -1,1 +1,73 @@
-123
+#include <iostream>
+using namespace std;
+int binarySearch(int a[],int n,int x,int &i,int &j);
+int SearchTag(int a[],int n,int x);
+int main()
+{
+ int i,j;
+ int n1,n2,m,I;
+ int mid,a[100],t[100];
+ cin>>n1;
+ for(i=0;i<n1;i++)
+ {   cin>>a[i];//用来测试的数组
+ }  
+ cout<<"输入要查询的元素m"<<endl;
+ cin>>m;
+ mid=binarySearch(a,n1,m,i,j);//调用二分搜索算法
+ if(mid!=-1)     //查询成功
+ {cout<<"the x's position is :"<<mid<<",i is"<<i<<",j is"<<j <<'\n';}
+ else       //查询失败
+ { cout<<"can't find this element,the i is :"<< i<<",j is"<<j << '\n';}
+  cin>>n2;
+  for(i=0;i<n2;i++)
+  {cin>>t[i];
+  }
+  for(i=0;i<n2;i++)
+  { I=SearchTag(t,n2,i);
+    if(I!=-1)     //查询成功
+	{cout<<"the I's position is :"<<I<<'\n';
+	}
+  }
+ if(I==-1)      //查询失败
+ { cout<<"can't find this element";}
+ return 0;
+}
+
+int binarySearch(int a[],int n,int x,int &i,int &j)
+//a[]为要搜索的数组; n为数组元素的个数; x为要查询的元素值；i为小于x的最大元素位置;j为大于x的最小元素的位置
+{
+ int right=n-1; 
+ int left=0;  
+ while(left<=right)
+ {
+  int mid=(left+right)/2;
+  if(x==a[mid])
+  {
+    i=j=mid;
+   return mid;
+  }
+  if(x>a[mid]) 
+   left=mid+1;
+  else
+   right=mid-1; 
+  i=right;
+     j=left;
+ }
+ return -1;  //查询失败
+}
+
+int SearchTag(int a[],int n,int x)
+{
+    int left=0;
+    int right=n-1;
+    while(left<right)
+    {
+       int mid=(left+right)/2;
+        if(x==a[mid]) return mid;
+        if(x>a[mid])
+           right=mid-1;
+       else
+           left=mid+1;
+    }
+    return -1;
+}
